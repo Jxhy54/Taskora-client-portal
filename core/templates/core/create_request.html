@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="form-wrapper">
+    <div class="form-card">
+        <h2 class="form-title">Create Request</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" name="title" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" rows="4" class="form-control"></textarea>
+            </div>
+
+            <button class="btn btn-primary w-100">Submit Request</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="page-card">
+    <h1 class="section-title">{{ request_obj.title }}</h1>
+    <p><strong>Status:</strong> {{ request_obj.get_status_display }}</p>
+    <p>{{ request_obj.description }}</p>
+</div>
+
+<div class="page-card">
+    <h2 class="h4 mb-4">Messages</h2>
+
+    <div class="message-list">
+        {% for message in messages %}
+            <div class="message-bubble {% if message.sender == user %}message-own{% endif %}">
+                <div class="message-meta">
+                    {{ message.sender.username }} · {{ message.created_at|date:"M d, Y H:i" }}
+                </div>
+                <div>{{ message.content }}</div>
+            </div>
+        {% empty %}
+            <p>No messages yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="page-card form-card">
+    <h2 class="h4 mb-3">Add Message</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea class="form-control" name="content" rows="4" placeholder="Write your message here..."></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+    </form>
+</div>
+{% endblock %}

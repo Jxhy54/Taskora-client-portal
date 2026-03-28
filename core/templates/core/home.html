@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <a href="{% url 'request_list' %}" class="text-decoration-none">
+            <div class="dashboard-card total-card">
+                <h6>Total Requests</h6>
+                <h2>{{ total_requests }}</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class=col-md-3>
+        <a href="{% url 'request_list' %}?status=pending" class="text-decoration-none">
+            <div class="dashboard-card pending-card">
+                <h6>Pending</h6>
+                <h2>{{ pending_requests }}</h2>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="col-md-3">
+        <a href="{% url 'request_list' %}?status=in_progress" class="text-decoration-none">
+            <div class="dashboard-card progress-card">
+                <h6>In Progress</h6>
+                <h2>{{ in_progress_requests }}</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{% url 'request_list' %}?status=completed" class="text-decoration-none">
+            <div class="dashboard-card completed-card">
+                <h6>Completed</h6>
+                <h2>{{ completed_requests }}</h2>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="page-card">
+    <h3 class="mb-3">Welcome{% if user.is_authenticated %}, {{ user.username }}{% endif %}</h3>
+    <p class="mb-0">
+        {% if user.is_staff %}
+        You are viewing the admin dashboard for all requests.
+        {% else %}
+        You are viewing your personal request dashboard.
+        {% endif %}
+    </p>
+</div>
+{% endblock %}
